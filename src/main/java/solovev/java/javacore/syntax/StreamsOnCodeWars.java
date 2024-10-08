@@ -1,19 +1,37 @@
 package solovev.java.javacore.syntax;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
+
 //every nested class is separate task
 public class StreamsOnCodeWars {
 
     //task:https://www.codewars.com/kata/570f6436b29c708a32000826/train/java
     public static class NoNRepeatedString {
-        public static Character firstNonRepeated(String source) {
+
+        //short solution
+        public static Character firstNonRepeatedShort(String source) {
             return source
                     .chars()
                     .mapToObj(i -> Character.valueOf((char) i))
                     .filter(c -> source.indexOf(c) == source.lastIndexOf(c))
+                    .findFirst()
+                    .get();
+        }
+
+        //line time solution
+        public static Character firstNonRepeated(String source) {
+            return  source
+                    .chars()
+                    .mapToObj(i -> (char) i)
+                    .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                    .entrySet()
+                    .stream()
+                    .filter(e -> e.getValue() == 1)
+                    .map(Map.Entry::getKey)
                     .findFirst()
                     .get();
         }
@@ -67,9 +85,12 @@ public class StreamsOnCodeWars {
     public static class TripleSorter {
         private interface Student {
             int getGpa();
+
             int getAge();
+
             String getFullName();
         }
+
         public static String sort(List<Student> students) {
             Comparator<Student> comp = Comparator
                     .comparingInt(Student::getGpa).reversed()
@@ -81,27 +102,28 @@ public class StreamsOnCodeWars {
                     .map(Student::getFullName)
                     .collect(Collectors.joining(","));
         }
-        private static char extractLetter(Student student){
+
+        private static char extractLetter(Student student) {
             return student.getFullName().split(" ")[1].charAt(0);
         }
     }
 
     //task: https://www.codewars.com/kata/51e0007c1f9378fa810002a9/train/java
-    public static class ParserWithStream{
+    public static class ParserWithStream {
         private static int pos;
         private static int i;
         private static int[] res;
-        private static Map<Integer,Runnable> actions = Map.of(
-                (int)'i', () -> pos++,
-                (int)'d', () -> pos--,
-                (int)'s', () -> pos*= pos,
-                (int)'o', () -> res[i++] = pos
+        private static Map<Integer, Runnable> actions = Map.of(
+                (int) 'i', () -> pos++,
+                (int) 'd', () -> pos--,
+                (int) 's', () -> pos *= pos,
+                (int) 'o', () -> res[i++] = pos
         );
 
         public static int[] parse(String data) {
             pos = 0;
             i = 0;
-            res = new int[data.replaceAll("[^o]","").length()];
+            res = new int[data.replaceAll("[^o]", "").length()];
             data
                     .chars()
                     .forEach(i -> actions.get(i).run());
