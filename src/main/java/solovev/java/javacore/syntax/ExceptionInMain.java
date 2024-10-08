@@ -9,4 +9,5 @@ public class ExceptionInMain {
         File nonExist = new File("/nonExist");
         FileInputStream stream = new FileInputStream(nonExist);;
     }
+
 }
