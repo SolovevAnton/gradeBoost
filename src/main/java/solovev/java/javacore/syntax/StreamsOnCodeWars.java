@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
-
+//every nested class is separate task
 public class StreamsOnCodeWars {
 
     //task:https://www.codewars.com/kata/570f6436b29c708a32000826/train/java
@@ -73,7 +73,7 @@ public class StreamsOnCodeWars {
         public static String sort(List<Student> students) {
             Comparator<Student> comp = Comparator
                     .comparingInt(Student::getGpa).reversed()
-                    .thenComparing(TripleSorter::extractLatter)
+                    .thenComparing(TripleSorter::extractLetter)
                     .thenComparing(Student::getAge);
             return students
                     .stream()
@@ -81,7 +81,7 @@ public class StreamsOnCodeWars {
                     .map(Student::getFullName)
                     .collect(Collectors.joining(","));
         }
-        private static char extractLatter(Student student){
+        private static char extractLetter(Student student){
             return student.getFullName().split(" ")[1].charAt(0);
         }
     }
