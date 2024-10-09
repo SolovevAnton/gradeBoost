@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 //every nested class is separate task
 public class StreamsOnCodeWars {
@@ -128,6 +129,24 @@ public class StreamsOnCodeWars {
                     .chars()
                     .forEach(i -> actions.get(i).run());
             return res;
+        }
+    }
+
+    //task: https://www.codewars.com/kata/5960e6cf09868d7f2f0000bc/train/java
+    public static class StudentAggregation {
+        private interface Student {
+            String getDepartment();
+            String getName();
+        }
+
+        public static Map<String, List<String>> getStudentNamesByDepartment(Stream<Student> students) {
+            return students
+                    .collect(
+                            Collectors.groupingBy(
+                                    Student::getDepartment,
+                                    Collectors.mapping(Student::getName, Collectors.toList())
+                            )
+                    );
         }
     }
 
