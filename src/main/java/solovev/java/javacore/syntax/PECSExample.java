@@ -1,5 +1,6 @@
 package solovev.java.javacore.syntax;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PECSExample {
@@ -18,7 +19,7 @@ public class PECSExample {
         Class1 one = producer.getFirst();
         Class2 two = producer.getFirst();
         //next will gie compilation error
-        Class3 three = producer.getFirst();
+       // Class3 three = producer.getFirst();
 
         Object toAdd0 = null;
         Class1 toAdd1 = null;
@@ -26,10 +27,10 @@ public class PECSExample {
         Class3 toAdd3 = null;
 
         //all below compilation error:
-        producer.add(toAdd0);
+/*        producer.add(toAdd0);
         producer.add(toAdd1);
         producer.add(toAdd2);
-        producer.add(toAdd3);
+        producer.add(toAdd3);*/
     }
 
     private void strict(List<Class2> list) {
@@ -37,7 +38,7 @@ public class PECSExample {
         Class1 one = list.getFirst();
         Class2 two = list.getFirst();
         //next will give compilation error
-        Class3 three = list.getFirst();
+       // Class3 three = list.getFirst();
 
         Object toAdd0 = null;
         Class1 toAdd1 = null;
@@ -45,8 +46,8 @@ public class PECSExample {
         Class3 toAdd3 = null;
 
         //this two below compilation error:
-        list.add(toAdd0);
-        list.add(toAdd1);
+/*        list.add(toAdd0);
+        list.add(toAdd1);*/
 
         //this will be fine!
         list.add(toAdd2);
@@ -60,8 +61,8 @@ public class PECSExample {
         Class3 toAdd3 = null;
 
         //this two below compilation error:
-        consumer.add(toAdd0);
-        consumer.add(toAdd1);
+/*        consumer.add(toAdd0);
+        consumer.add(toAdd1);*/
 
         //this will be fine!
         consumer.add(toAdd2);
@@ -70,8 +71,29 @@ public class PECSExample {
         //this is fine
         Object zero = consumer.getFirst();
         //all below compilation error
-        Class1 one = consumer.getFirst();
+/*        Class1 one = consumer.getFirst();
         Class2 two = consumer.getFirst();
-        Class3 three = consumer.getFirst();
+        Class3 three = consumer.getFirst();*/
+    }
+
+    private void overall(){
+        List<Object> zero = new ArrayList<Object>();
+        List<Class1> one = new ArrayList<Class1>();
+        List<Class2> two = new ArrayList<Class2>();
+        List<Class3> three = new ArrayList<Class3>();
+
+        //following two compiler error
+/*        producer(zero);
+        producer(one);*/
+        //this two fine
+        producer(two);
+        producer(three);
+
+        //this fine
+        consumer(zero);
+        consumer(one);
+        consumer(two);
+        //here compiler error
+        //consumer(three);
     }
 }
