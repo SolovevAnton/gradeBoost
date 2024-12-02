@@ -16,6 +16,7 @@ public class EnumNotEqual {
         private final Path classDir;
 
         public CustomClassLoader(Path classDir) {
+            super(ClassLoader.getPlatformClassLoader());
             this.classDir = classDir;
         }
 

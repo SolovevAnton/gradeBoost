@@ -34,7 +34,7 @@ public class EnumerationImpl {
                 @Override
                 public boolean hasNext() {
                     return hasMoreElements();
-                }
+                } 
 
                 @Override
                 public Integer next() {
